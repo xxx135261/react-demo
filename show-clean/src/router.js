@@ -5,6 +5,7 @@ import Login from './pages/login'
 import Index from './pages/Index'
 import Home from './pages/home'
 import FromLogin from './pages/login'
+
 export default class IRouter extends React.Component {
 	render() {
 		return (
