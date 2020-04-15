@@ -1,12 +1,17 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
+import { inject, observer } from 'mobx-react/index'
 import BGParticle from '../../utils/BGParticle' //首次加载动画
 import Loading2 from '../../components/Loading2'
 import { Form, Input, Button } from 'antd'
 import './index.less'
+
 const FormItem = Form.Item;
 // import LoginForm from './LoginForm'
 
 const url = 'https://github.com/zhangZhiHao1996/image-store/blob/master/react-admin-master/bg1.jpg?raw=true'
+
+@withRouter @inject(['appStore']) @observer
 class Login extends React.Component {
 	state = {
 		loading: false
@@ -55,8 +60,10 @@ class Login extends React.Component {
 
 	loginReq = (params) => {
 		console.log(params);
-		// Util.setCookie("sessionId",params.username)
-		window.location.href = '/#/admin/home';
+		this.props.appStore.toggleLogin(true, {username: params.username}) //调用mobx appstore中的toggleLogin方法
+
+		const {from} = {from: {pathname: '/'}}
+		this.props.history.push(from)
 	};
 	render() {
 		const { loading } = this.state

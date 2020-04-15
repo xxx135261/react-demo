@@ -1,27 +1,24 @@
 import React from 'react'
-import { HashRouter, Route, Switch, Redirect } from 'react-router-dom'
+import { HashRouter, Route, Switch } from 'react-router-dom'
+import { Provider} from 'mobx-react'
+import store from './store'
 import App from './app'
 import Login from './pages/login'
 import Index from './pages/Index'
-import Home from './pages/home'
-import FromLogin from './pages/login'
+import PrivateRoute from './components/PrivateRoute'
 
 export default class IRouter extends React.Component {
 	render() {
 		return (
 			<HashRouter>
-				<App>
-					<Route path="/login" component={Login}></Route>
-					<Route path="/admin" render={() =>
-						<Index>
-							<Switch>
-								<Route path="/admin/home" component={Home}></Route>
-								<Route path="/admin/form/login" component={FromLogin}></Route>
-							</Switch>
-						</Index>
-					}></Route>
-					<Redirect from="/*" to="/login"></Redirect>
-				</App>
+				<Provider {...store}>
+					<App>
+						<Switch>
+							<Route path="/login" component={Login}></Route>
+							<PrivateRoute path='/' component={Index}/>
+						</Switch>
+					</App>
+				</Provider>
 			</HashRouter>
 		)
 	}

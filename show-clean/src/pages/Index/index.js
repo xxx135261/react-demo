@@ -1,26 +1,39 @@
 import React from 'react'
-import {Row,Col} from 'antd'
+import {Layout} from 'antd'
+import NavLeft from '../../components/NavLeft'
+import ContentMain from '../../components/contentMain'
+import '../../style/common.less'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
-import NavLeft from '../../components/NavLeft'
-import '../../style/common.less'
+const {Sider, Content} = Layout
 class Index extends React.Component{
-    render(){
-        return(
-            <Row className="container">
-                <Col span={3} className="nav-left">
-                    <NavLeft/>
-                </Col>
-                <Col span={21} className="main">
-                    <Header></Header>
-                    <Row className="content">
-                        {this.props.children}
-                    </Row>
-                    <Footer></Footer>
-                </Col>
-            </Row>
-        )
-    }
+	constructor(props){
+		super(props)
+		this.state = {
+			collapsed:false
+		}
+	}
+	toggle = () => {
+		this.setState({
+			collapsed:!this.state.collapsed
+		})
+	}
+	render(){
+		return(
+			<Layout>
+				<Sider collapsible trigger={null}	collapsed={this.state.collapsed}>
+					<NavLeft/>
+				</Sider>
+				<Layout>
+					<Header collapsed={this.state.collapsed} onToggle={this.toggle}></Header>
+					<Content>
+						<ContentMain />
+					</Content>
+					<Footer></Footer>
+				</Layout>
+			</Layout>
+		)
+	}
 }
 
 export default Index
