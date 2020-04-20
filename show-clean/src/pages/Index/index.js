@@ -20,9 +20,9 @@ class Index extends React.Component{
 	}
 	render(){
 		return(
-			<Layout>
+			<Layout id='page'>
 				<Sider collapsible trigger={null}	collapsed={this.state.collapsed}>
-					<NavLeft/>
+					<NavLeft collapsed={this.state.collapsed}/>
 				</Sider>
 				<Layout>
 					<Header collapsed={this.state.collapsed} onToggle={this.toggle}></Header>

@@ -18,6 +18,10 @@ class Login extends React.Component {
 	};
 
 	componentDidMount() {//每次进入登录页清除之前的登录信息
+		const {isLogin} = this.props.appStore
+		if(isLogin){
+			this.props.history.go(1)
+		}
 		this.initPage()
 	}
 
@@ -38,7 +42,7 @@ class Login extends React.Component {
 			})
 		}).then(() => {
 			//为什么写在then里？id为backgroundBox的DOM元素是在loading为false时才有，而上面的setState是异步的，必须等到setState执行完成后才去获取dom
-			this.particle = new BGParticle('login_bgimg')
+			this.particle = new BGParticle('login-page-loading')
 			this.particle.init()
 		})
 	}
@@ -60,7 +64,7 @@ class Login extends React.Component {
 
 	loginReq = (params) => {
 		console.log(params);
-		this.props.appStore.toggleLogin(true, {username: params.username}) //调用mobx appstore中的toggleLogin方法
+		this.props.appStore.toggleLogin(true, params) //调用mobx appstore中的toggleLogin方法
 
 		const {from} = {from: {pathname: '/'}}
 		this.props.history.push(from)
@@ -68,15 +72,16 @@ class Login extends React.Component {
 	render() {
 		const { loading } = this.state
 		return (
-			<div className="login-page">
+			<div id="login-page">
 				{	loading ?
-					<div>
-						<h3 className='loadingTitle animated bounceInLeft'>载入中...</h3>
+					<div className="loadingWrap">
+						<h3 className='loadingTitle'>载入中...</h3>
 						<Loading2/>
 					</div>
 					:
-					<div className="login-content-wrap" id="login_bgimg">
-						 <LoginFrom loginSubmit = {this.loginReq}/>
+					<div className="login-content-wrap" >
+						<div id='login-page-loading'/>
+						<LoginFrom loginSubmit = {this.loginReq}/>
 					</div>
 				}
 			</div>
@@ -118,6 +123,7 @@ class LoginFrom extends React.Component {
 		const { getFieldDecorator } = this.props.form
 		return (
 			<div className="login-form">
+				<h1 className="login-title">ANTD 管理系统</h1>
 				<Form>
 					<FormItem>
 						{

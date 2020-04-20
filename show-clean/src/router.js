@@ -1,5 +1,5 @@
 import React from 'react'
-import { HashRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { Provider} from 'mobx-react'
 import store from './store'
 import App from './app'
@@ -7,10 +7,10 @@ import Login from './pages/login'
 import Index from './pages/Index'
 import PrivateRoute from './components/PrivateRoute'
 
-export default class IRouter extends React.Component {
+export default class Router extends React.Component {
 	render() {
 		return (
-			<HashRouter>
+			<BrowserRouter>
 				<Provider {...store}>
 					<App>
 						<Switch>
@@ -19,7 +19,7 @@ export default class IRouter extends React.Component {
 						</Switch>
 					</App>
 				</Provider>
-			</HashRouter>
+			</BrowserRouter>
 		)
 	}
 }

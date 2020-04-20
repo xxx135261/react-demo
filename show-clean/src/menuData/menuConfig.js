@@ -18,6 +18,7 @@ const menuList = [{
 				title: '图标',
 				key: '/home/general/icon',
 				icon:'laptop',
+				component:LoadComponent(()=>import('../pages/general/Icon')),
 			}
 		]
 	},
@@ -26,9 +27,9 @@ const menuList = [{
 		icon: 'bars',
 		key: '/home/navigation',
 		children:[
-			{key: '/home/navigation/dropdown', title: '下拉菜单',	component:LoadComponent(()=>import('../pages/Index'))},
-      {key: '/home/navigation/menu', title: '导航菜单',	component:LoadComponent(()=>import('../pages/Index'))},
-      {key: '/home/navigation/steps', title: '步骤条',	component:LoadComponent(()=>import('../pages/Index'))},
+			{key: '/home/navigation/dropdown', title: '下拉菜单',	component:LoadComponent(()=>import('../pages/home'))},
+      {key: '/home/navigation/menu', title: '导航菜单',	component:LoadComponent(()=>import('../pages/home'))},
+      {key: '/home/navigation/steps', title: '步骤条',	component:LoadComponent(()=>import('../pages/home'))},
 		]
 	},
 ];
